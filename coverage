@@ -1,0 +1,9 @@
+#!/bin/bash
+
+clear
+
+composer install
+
+php -d display_errors ./bin/phpunit --coverage-html=/tmp/coverage
+
+open /tmp/coverage/index.html
