@@ -72,7 +72,7 @@ class Engine
         }
     }
 
-    private function buildGlobalVars($params)
+    public function buildGlobalVars($params)
     {
         $this->wheelGlobalVars = '';
         foreach ($params as $name => $value) {
@@ -97,5 +97,10 @@ class Engine
         );
 
         return ob_get_clean();
+    }
+
+    public function getGlobalVars()
+    {
+        return $this->wheelGlobalVars;
     }
 }

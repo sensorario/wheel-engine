@@ -7,12 +7,29 @@ use Sensorario\WheelEngine\Engine;
 
 class EngineTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @expectedException \RuntimeException
-     */
-    public function test()
+    public function setUp()
     {
-        $engine = new Engine();
-        $engine->render('foo',[]);
+        $this->engine = new Engine();
+    }
+
+    /**
+     * @expectedException        \RuntimeException
+     * @expectedExceptionMessage Template foo not exists!
+     */
+    public function testWheneverCalledWithWrongTemplateNameThrowAnException()
+    {
+        $this->engine->render('foo', []);
+    }
+
+    public function testTransformArrayKeyValuesInPhpVariables()
+    {
+        $this->engine->buildGlobalVars($variables = [
+            'foo' => 'bar',
+        ]);
+
+        $this->assertEquals(
+            '<?php $foo = "bar"; ?>',
+            $this->engine->getGlobalVars()
+        );
     }
 }
